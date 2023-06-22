@@ -8,14 +8,14 @@ import morgan from 'morgan';
 import { Server } from 'socket.io';
 // modules from this project
 // Database
-import { dbConnection } from '../config/database';
+import { dbConnection } from './config/database';
 // Routes
-import DeepfakeRoute from '../routes/deepfakeRoute';
-import UserRoute from '../routes/userRoute';
-import indexRouter from '../routes/indexRouter';
+import DeepfakeRoute from './routes/deepfakeRoute';
+import UserRoute from './routes/userRoute';
+import indexRouter from './routes/indexRouter';
 // Error Handling
-import ApiError from '../utils/apiError';
-import globalError from '../middlewares/errorMiddleware';
+import ApiError from './utils/apiError';
+import globalError from './middlewares/errorMiddleware';
 
 dotenv.config({ path: 'config.env' });
 
