@@ -5,7 +5,6 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 import morgan from 'morgan';
-import { Server } from 'socket.io';
 // modules from this project
 // Database
 import { dbConnection } from './config/database';
@@ -28,13 +27,13 @@ const app = express();
 // Middlewares
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, '../uploads')));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '/uploads')));
+app.use(express.static(path.join(__dirname, '/public')));
 
 // app.use(express.json());
 // app.use(express.urlencoded({ extended: true }));
 
-app.set('views', path.join(__dirname, '../views'));
+app.set('views', path.join(__dirname, '/views'));
 app.set('view engine', 'ejs');
 
 // Development logging
@@ -69,28 +68,6 @@ process.on('unhandledRejection', (err: Error) => {
     console.error(`unhandledRejection Errors: ${err.name} | ${err.message}`);
     server.close(() => {
         console.log(`Shutting down.....`);
-
         process.exit(1);
     });
-});
-// Socket.io connection
-const serverio = require('http').createServer(app);
-const io = new Server(server, {
-    cors: {
-        origin: '*',
-        methods: '*',
-        credentials: true,
-    },
-});
-io.on('connection', async (socket) => {
-    socket.on('prediction', async (prediction) => {
-        console.log(prediction);
-    });
-
-    socket.on('disconnect', () => {
-        console.log('user disconnected');
-    });
-});
-serverio.listen(3000, () => {
-    console.log('server is running......');
 });
