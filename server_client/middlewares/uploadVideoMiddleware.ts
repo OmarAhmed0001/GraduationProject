@@ -15,7 +15,7 @@ const multerOptions = () => {
             cb(null, 'uploads/deepfake/');
         },
         filename: (req: Request, file: Express.Multer.File, cb: Function) => {
-            const ext = file.mimetype.split('/')[1];
+           // const ext = file.mimetype.split('/')[1];
            // const filename = `deepfake-${uuidv4()}-${Date.now()}.${ext}`;
             const filename = file.originalname;
             console.log(filename);
